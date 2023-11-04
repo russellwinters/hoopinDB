@@ -21,7 +21,8 @@ model Player {
   nameLast String
   dob DateTime
   games GamePlayer[]
-  averages AverageGamePlayer?
+  averages PlayerStatAverage?
+  totals PlayerStatTotal?
   contracts ContractFantasy[]
 }
 
@@ -47,10 +48,35 @@ model GamePlayer {
   pts Int
 }
 
-model AverageGamePlayer {
+model PlayerStatTotal {
+  id String @id @default(uuid())
+  playerId String @unique
+  player Player @relation(fields: [playerId], references: [id])
+  latestUpdate DateTime
+  minutes Int
+  fga Int
+  fgm Int
+  tpa Int
+  tpm Int
+  fta Int
+  ftm Int
+  oreb Int
+  dreb Int
+  reb Int 
+  ast Int
+  stl Int
+  blk Int
+  to Int
+  pf Int
+  pts Int
+}
+
+
+model PlayerStatAverage {
   id String      @id @default(uuid())
   playerId String @unique
   player Player     @relation(fields: [playerId], references: [id])
+  latestUpdate DateTime
   minutes Int
   fga Int
   fgm Int
@@ -75,16 +101,6 @@ model Team {
   city String
   roster Player[]
   games GameTeam[]
-  // owner // TODO Build out this feature
-}
-
-model TeamFantasy {
-  id String    @id @default(uuid())
-  name String
-  contracts ContractFantasy[]
-  // roster Player[]
-  // games GameTeam[]
-  // owner // TODO Build out this feature
 }
 
 model GameTeam {
@@ -106,6 +122,15 @@ model GameTeam {
   to Int
   pf Int
   pts Int
+}
+
+model TeamFantasy {
+  id String    @id @default(uuid())
+  name String
+  contracts ContractFantasy[]
+  // roster Player[]  // Feeling like we should only access the players through the contracts
+  // games GameTeamFantasy[] // TODO: this would have to be a new type of GameTeamFantasy
+  // owner // TODO Build out this feature
 }
 
 model ContractFantasy {

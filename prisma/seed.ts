@@ -1,11 +1,10 @@
 import { gameSeedUtil } from "./seeds/game";
 import { playerSeedUtil } from "./seeds/player";
-import prisma from "../index";
+import prisma, { GamePlayer, Player, Team } from "../index";
 import { teamSeedUtil } from "./seeds/team";
 
 async function main() {
-  // TODO: type the teams
-  const teams: any[] = [
+  const teams: Team[] = [
     teamSeedUtil.createSingleTeam(),
     teamSeedUtil.createSingleTeam(),
     teamSeedUtil.createSingleTeam(),
@@ -18,9 +17,8 @@ async function main() {
     teamSeedUtil.createSingleTeam(),
   ];
 
-  // TODO: type any for players and games
-  const players: any[] = [];
-  const games: any[] = [];
+  const players: Player[] = [];
+  const games: GamePlayer[] = [];
 
   console.log("running seed: " + teams.length + "teams");
 
