@@ -43,7 +43,9 @@ async function main() {
 
     superstars.forEach((player) => {
       gameCounterArray.forEach(() => {
-        const game = gameSeedUtil.createGamePlayerSuperstar(player.id);
+        const game: GamePlayer = gameSeedUtil.createGamePlayerSuperstar(
+          player.id
+        );
         games.push(game);
       });
 
@@ -52,7 +54,9 @@ async function main() {
 
     midLevels.forEach((player) => {
       gameCounterArray.forEach(() => {
-        const game = gameSeedUtil.createGamePlayerMidLevel(player.id);
+        const game: GamePlayer = gameSeedUtil.createGamePlayerMidLevel(
+          player.id
+        );
         games.push(game);
       });
 
@@ -61,7 +65,9 @@ async function main() {
 
     minimums.forEach((player) => {
       gameCounterArray.forEach(() => {
-        const game = gameSeedUtil.createGamePlayerMinimim(player.id);
+        const game: GamePlayer = gameSeedUtil.createGamePlayerMinimim(
+          player.id
+        );
         games.push(game);
       });
 

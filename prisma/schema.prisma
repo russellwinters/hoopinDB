@@ -14,11 +14,11 @@ datasource db {
 // ---------------------  In-App Data ----------------------- //
 model Player {
   id    String     @id @default(uuid())
-  teamId String    
-  team Team     @relation(fields: [teamId], references: [id])
+  team_id String    
+  team Team     @relation(fields: team_id, references: id)
   salary Int
-  nameFirst String  
-  nameLast String
+  name_first String  
+  name_last String
   dob DateTime
   games GamePlayer[]
   averages PlayerStatAverage?
@@ -28,8 +28,8 @@ model Player {
 
 model GamePlayer {
   id String      @id @default(uuid())
-  playerId String
-  player Player     @relation(fields: [playerId], references: [id])
+  player_id String
+  player Player     @relation(fields: player_id, references: id)
   minutes Int
   fga Int
   fgm Int
@@ -50,9 +50,9 @@ model GamePlayer {
 
 model PlayerStatTotal {
   id String @id @default(uuid())
-  playerId String @unique
-  player Player @relation(fields: [playerId], references: [id])
-  latestUpdate DateTime
+  player_id String @unique
+  player Player @relation(fields: player_id, references: id)
+  latest_update DateTime
   minutes Int
   fga Int
   fgm Int
@@ -74,9 +74,9 @@ model PlayerStatTotal {
 
 model PlayerStatAverage {
   id String      @id @default(uuid())
-  playerId String @unique
-  player Player     @relation(fields: [playerId], references: [id])
-  latestUpdate DateTime
+  player_id String @unique
+  player Player     @relation(fields: player_id, references: id)
+  latest_update DateTime
   minutes Int
   fga Int
   fgm Int
@@ -105,8 +105,8 @@ model Team {
 
 model GameTeam {
   id String      @id @default(uuid())
-  teamId String
-  team Team       @relation(fields: [teamId], references: [id])
+  team_id String
+  team Team       @relation(fields: team_id, references: id)
   fga Int
   fgm Int
   tpa Int
@@ -135,14 +135,14 @@ model TeamFantasy {
 
 model ContractFantasy {
   id String       @id @default(uuid())
-  teamId String   
-  team TeamFantasy @relation(fields: teamId, references: id)
-  playerId String
-  player Player @relation(fields: playerId, references: id)
+  team_id String   
+  team TeamFantasy @relation(fields: team_id, references: id)
+  player_id String
+  player Player @relation(fields: player_id, references: id)
   signed DateTime 
   waived DateTime?
-  successorId String? @unique
-  predecessor ContractFantasy? @relation("ContractHistory", fields: [successorId], references: [id])
+  successor_id String? @unique
+  predecessor ContractFantasy? @relation("ContractHistory", fields: successor_id, references: [id])
   successor ContractFantasy? @relation("ContractHistory")
 } 
 

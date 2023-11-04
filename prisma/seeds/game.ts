@@ -1,7 +1,8 @@
 import { faker } from "@faker-js/faker";
+import { GamePlayer, GameTeam } from "@prisma/client";
 
 export const gameSeedUtil = {
-  createGamePlayerSuperstar: (playerId: string) => {
+  createGamePlayerSuperstar: (playerId: string): GamePlayer => {
     // Threes
     const mockTpa = faker.number.int({ min: 2, max: 10 });
     const mockTpp = faker.number.int({ min: 27, max: 41 });
@@ -17,7 +18,7 @@ export const gameSeedUtil = {
     const mockftp = faker.number.int({ min: 67, max: 92 });
     const mockftm = Math.floor(mockFta * (mockftp / 100));
 
-    // Rebounds
+    // ReboundsF
     const mockOreb = faker.number.int({ min: 0, max: 3 });
     const mockDreb = faker.number.int({ min: 1, max: 5 });
 
@@ -29,9 +30,9 @@ export const gameSeedUtil = {
 
     return {
       id: faker.string.uuid(),
-      playerId: playerId,
+      player_id: playerId,
       // player:  // TODO: Find out if we really need this
-      minutes: faker.datatype.number({ min: 30, max: 40 }),
+      minutes: faker.number.int({ min: 30, max: 40 }),
       fga: mockFga,
       fgm: mockfgm,
       tpa: mockTpa,
@@ -50,7 +51,7 @@ export const gameSeedUtil = {
     };
   },
 
-  createGamePlayerMidLevel: (playerId: string) => {
+  createGamePlayerMidLevel: (playerId: string): GamePlayer => {
     // Threes
     const mockTpa = faker.number.int({ min: 1, max: 5 });
     const mockTpp = faker.number.int({ min: 22, max: 44 });
@@ -78,7 +79,7 @@ export const gameSeedUtil = {
 
     return {
       id: faker.string.uuid(),
-      playerId: playerId,
+      player_id: playerId,
       // player:  // TODO: Find out if we really need this
       minutes: faker.number.int({ min: 17, max: 34 }),
       fga: mockFga,
@@ -99,7 +100,7 @@ export const gameSeedUtil = {
     };
   },
 
-  createGamePlayerMinimim: (playerId: string) => {
+  createGamePlayerMinimim: (playerId: string): GamePlayer => {
     // Threes
     const mockTpa = faker.number.int({ min: 0, max: 3 });
     const mockTpp = faker.number.int({ min: 18, max: 36 });
@@ -126,8 +127,8 @@ export const gameSeedUtil = {
     const twoPointerPoints = twoPointerMakes * 2;
 
     return {
-      id: faker.datatype.uuid(),
-      playerId: playerId,
+      id: faker.string.uuid(),
+      player_id: playerId,
       // player:  // TODO: Find out if we really need this
       minutes: faker.number.int({ min: 4, max: 22 }),
       fga: mockFga,
@@ -148,7 +149,7 @@ export const gameSeedUtil = {
     };
   },
 
-  createGameTeam: (teamId: string) => {
+  createGameTeam: (teamId: string): GameTeam => {
     // Threes
     const mockTpa = faker.number.int({ min: 28, max: 47 });
     const mockTpp = faker.number.int({ min: 28, max: 42 });
@@ -176,7 +177,7 @@ export const gameSeedUtil = {
 
     return {
       id: faker.string.uuid(),
-      team: teamId,
+      team_id: teamId,
       // team:  // TODO: Find out if we really need this
       fga: mockFga,
       fgm: mockfgm,
