@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,139 +7,142 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-// ---------------------  In-App Data ----------------------- //
 model Player {
-  id    String     @id @default(uuid())
-  team_id String    
-  team Team     @relation(fields: team_id, references: id)
-  salary Int
-  name_first String  
-  name_last String
-  dob DateTime
-  games GamePlayer[]
-  averages PlayerStatAverage?
-  totals PlayerStatTotal?
-  contracts ContractFantasy[]
+  id         String             @id @default(uuid())
+  salary     Int
+  dob        DateTime
+  name_first String
+  name_last  String
+  team_id    String
+  contracts  ContractFantasy[]
+  games      GamePlayer[]
+  team       Team               @relation(fields: [team_id], references: [id])
+  averages   PlayerStatAverage?
+  totals     PlayerStatTotal?
 }
 
 model GamePlayer {
-  id String      @id @default(uuid())
+  id        String @id @default(uuid())
+  minutes   Int
+  fga       Int
+  fgm       Int
+  tpa       Int
+  tpm       Int
+  fta       Int
+  ftm       Int
+  oreb      Int
+  dreb      Int
+  reb       Int
+  ast       Int
+  stl       Int
+  blk       Int
+  to        Int
+  pf        Int
+  pts       Int
   player_id String
-  player Player     @relation(fields: player_id, references: id)
-  minutes Int
-  fga Int
-  fgm Int
-  tpa Int
-  tpm Int
-  fta Int
-  ftm Int
-  oreb Int
-  dreb Int
-  reb Int 
-  ast Int
-  stl Int
-  blk Int
-  to Int
-  pf Int
-  pts Int
+  player    Player @relation(fields: [player_id], references: [id])
 }
 
 model PlayerStatTotal {
-  id String @id @default(uuid())
-  player_id String @unique
-  player Player @relation(fields: player_id, references: id)
+  id            String   @id @default(uuid())
+  minutes       Int
+  fga           Int
+  fgm           Int
+  tpa           Int
+  tpm           Int
+  fta           Int
+  ftm           Int
+  oreb          Int
+  dreb          Int
+  reb           Int
+  ast           Int
+  stl           Int
+  blk           Int
+  to            Int
+  pf            Int
+  pts           Int
   latest_update DateTime
-  minutes Int
-  fga Int
-  fgm Int
-  tpa Int
-  tpm Int
-  fta Int
-  ftm Int
-  oreb Int
-  dreb Int
-  reb Int 
-  ast Int
-  stl Int
-  blk Int
-  to Int
-  pf Int
-  pts Int
+  player_id     String   @unique
+  player        Player   @relation(fields: [player_id], references: [id])
 }
 
+model PlayerTotalUpdate {
+  id Int @id @default(autoincrement())
+  timestamp DateTime
+}
 
 model PlayerStatAverage {
-  id String      @id @default(uuid())
-  player_id String @unique
-  player Player     @relation(fields: player_id, references: id)
+  id            String   @id @default(uuid())
+  minutes       Int
+  fga           Int
+  fgm           Int
+  tpa           Int
+  tpm           Int
+  fta           Int
+  ftm           Int
+  oreb          Int
+  dreb          Int
+  reb           Int
+  ast           Int
+  stl           Int
+  blk           Int
+  to            Int
+  pf            Int
+  pts           Int
   latest_update DateTime
-  minutes Int
-  fga Int
-  fgm Int
-  tpa Int
-  tpm Int
-  fta Int
-  ftm Int
-  oreb Int
-  dreb Int
-  reb Int 
-  ast Int
-  stl Int
-  blk Int
-  to Int
-  pf Int
-  pts Int
+  player_id     String   @unique
+  player        Player   @relation(fields: [player_id], references: [id])
+}
+
+model PlayerAverageUpdate {
+  id Int @id @default(autoincrement())
+  timestamp DateTime
 }
 
 model Team {
-  id String    @id @default(uuid())
-  name String
-  city String
+  id     String     @id @default(uuid())
+  name   String
+  city   String
+  games  GameTeam[]
   roster Player[]
-  games GameTeam[]
 }
 
 model GameTeam {
-  id String      @id @default(uuid())
+  id      String @id @default(uuid())
+  fga     Int
+  fgm     Int
+  tpa     Int
+  tpm     Int
+  fta     Int
+  ftm     Int
+  oreb    Int
+  dreb    Int
+  reb     Int
+  ast     Int
+  stl     Int
+  blk     Int
+  to      Int
+  pf      Int
+  pts     Int
   team_id String
-  team Team       @relation(fields: team_id, references: id)
-  fga Int
-  fgm Int
-  tpa Int
-  tpm Int
-  fta Int
-  ftm Int
-  oreb Int
-  dreb Int
-  reb Int 
-  ast Int
-  stl Int
-  blk Int
-  to Int
-  pf Int
-  pts Int
+  team    Team   @relation(fields: [team_id], references: [id])
 }
 
 model TeamFantasy {
-  id String    @id @default(uuid())
-  name String
+  id        String            @id @default(uuid())
+  name      String
   contracts ContractFantasy[]
-  // roster Player[]  // Feeling like we should only access the players through the contracts
-  // games GameTeamFantasy[] // TODO: this would have to be a new type of GameTeamFantasy
-  // owner // TODO Build out this feature
 }
 
 model ContractFantasy {
-  id String       @id @default(uuid())
-  team_id String   
-  team TeamFantasy @relation(fields: team_id, references: id)
-  player_id String
-  player Player @relation(fields: player_id, references: id)
-  signed DateTime 
-  waived DateTime?
-  successor_id String? @unique
-  predecessor ContractFantasy? @relation("ContractHistory", fields: successor_id, references: [id])
-  successor ContractFantasy? @relation("ContractHistory")
-} 
-
+  id           String           @id @default(uuid())
+  signed       DateTime
+  waived       DateTime?
+  player_id    String
+  successor_id String?          @unique
+  team_id      String
+  player       Player           @relation(fields: [player_id], references: [id])
+  predecessor  ContractFantasy? @relation("ContractHistory", fields: [successor_id], references: [id])
+  successor    ContractFantasy? @relation("ContractHistory")
+  team         TeamFantasy      @relation(fields: [team_id], references: [id])
+}
