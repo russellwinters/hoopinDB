@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+// ---------------------  In-App Data ----------------------- //
+model Player {
+  id    String     @id @default(uuid())
+  teamId String    
+  team Team     @relation(fields: [teamId], references: [id])
+  salary Int
+  nameFirst String  
+  nameLast String
+  dob DateTime
+  games GamePlayer[]
+  averages AverageGamePlayer?
+  contracts ContractFantasy[]
+}
+
+model GamePlayer {
+  id String      @id @default(uuid())
+  playerId String
+  player Player     @relation(fields: [playerId], references: [id])
+  minutes Int
+  fga Int
+  fgm Int
+  tpa Int
+  tpm Int
+  fta Int
+  ftm Int
+  oreb Int
+  dreb Int
+  reb Int 
+  ast Int
+  stl Int
+  blk Int
+  to Int
+  pf Int
+  pts Int
+}
+
+model AverageGamePlayer {
+  id String      @id @default(uuid())
+  playerId String @unique
+  player Player     @relation(fields: [playerId], references: [id])
+  minutes Int
+  fga Int
+  fgm Int
+  tpa Int
+  tpm Int
+  fta Int
+  ftm Int
+  oreb Int
+  dreb Int
+  reb Int 
+  ast Int
+  stl Int
+  blk Int
+  to Int
+  pf Int
+  pts Int
+}
+
+model Team {
+  id String    @id @default(uuid())
+  name String
+  city String
+  roster Player[]
+  games GameTeam[]
+  // owner // TODO Build out this feature
+}
+
+model TeamFantasy {
+  id String    @id @default(uuid())
+  name String
+  contracts ContractFantasy[]
+  // roster Player[]
+  // games GameTeam[]
+  // owner // TODO Build out this feature
+}
+
+model GameTeam {
+  id String      @id @default(uuid())
+  teamId String
+  team Team       @relation(fields: [teamId], references: [id])
+  fga Int
+  fgm Int
+  tpa Int
+  tpm Int
+  fta Int
+  ftm Int
+  oreb Int
+  dreb Int
+  reb Int 
+  ast Int
+  stl Int
+  blk Int
+  to Int
+  pf Int
+  pts Int
+}
+
+model ContractFantasy {
+  id String       @id @default(uuid())
+  teamId String   
+  team TeamFantasy @relation(fields: teamId, references: id)
+  playerId String
+  player Player @relation(fields: playerId, references: id)
+  signed DateTime 
+  waived DateTime?
+  successorId String? @unique
+  predecessor ContractFantasy? @relation("ContractHistory", fields: [successorId], references: [id])
+  successor ContractFantasy? @relation("ContractHistory")
+} 
+

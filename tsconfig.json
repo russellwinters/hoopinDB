@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2021", "DOM"],
+    "outDir": "./build",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "ES2021",
+    "allowJs": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "noFallthroughCasesInSwitch": true,
+    "stripInternal": true,
+    "pretty": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "downlevelIteration": true,
+    "baseUrl": "./",
+    "typeRoots": ["types"]
+  },
+  "exclude": ["node_modules", "**/*.test.*", "build/**/*"]
+}
