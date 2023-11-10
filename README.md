@@ -16,9 +16,7 @@ This is intended to be used as a DB server for basketball data. Connect to your 
 
 ### To do:
 
-- Init player averages values
-- Setup job to update player averages
-- Setup route to GET player average
-- Update team with averages endpoint to use new DB relation
-- Make job to insert games for all players
-- Make job to update averages
+- Add date to games
+- Update seeds to handle dates on games
+- Add function to updateTotals based on dates of games and most recent update
+- Also find the best way to update averages based on this
