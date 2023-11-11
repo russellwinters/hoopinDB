@@ -23,6 +23,7 @@ model Player {
 
 model GamePlayer {
   id        String @id @default(uuid())
+  date  DateTime
   minutes   Int
   fga       Int
   fgm       Int
@@ -109,6 +110,7 @@ model Team {
 
 model GameTeam {
   id      String @id @default(uuid())
+  date DateTime
   fga     Int
   fgm     Int
   tpa     Int

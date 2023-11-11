@@ -2,7 +2,10 @@ import { faker } from "@faker-js/faker";
 import { GamePlayer, GameTeam } from "@prisma/client";
 
 export const gameSeedUtil = {
-  createGamePlayerSuperstar: (playerId: string): GamePlayer => {
+  createGamePlayerSuperstar: (
+    playerId: string,
+    dateTime: Date = new Date()
+  ): GamePlayer => {
     // Threes
     const mockTpa = faker.number.int({ min: 2, max: 10 });
     const mockTpp = faker.number.int({ min: 27, max: 41 });
@@ -31,7 +34,7 @@ export const gameSeedUtil = {
     return {
       id: faker.string.uuid(),
       player_id: playerId,
-      // player:  // TODO: Find out if we really need this
+      date: dateTime,
       minutes: faker.number.int({ min: 30, max: 40 }),
       fga: mockFga,
       fgm: mockfgm,
@@ -51,7 +54,10 @@ export const gameSeedUtil = {
     };
   },
 
-  createGamePlayerMidLevel: (playerId: string): GamePlayer => {
+  createGamePlayerMidLevel: (
+    playerId: string,
+    dateTime: Date = new Date()
+  ): GamePlayer => {
     // Threes
     const mockTpa = faker.number.int({ min: 1, max: 5 });
     const mockTpp = faker.number.int({ min: 22, max: 44 });
@@ -80,7 +86,7 @@ export const gameSeedUtil = {
     return {
       id: faker.string.uuid(),
       player_id: playerId,
-      // player:  // TODO: Find out if we really need this
+      date: dateTime,
       minutes: faker.number.int({ min: 17, max: 34 }),
       fga: mockFga,
       fgm: mockfgm,
@@ -100,7 +106,10 @@ export const gameSeedUtil = {
     };
   },
 
-  createGamePlayerMinimim: (playerId: string): GamePlayer => {
+  createGamePlayerMinimim: (
+    playerId: string,
+    dateTime: Date = new Date()
+  ): GamePlayer => {
     // Threes
     const mockTpa = faker.number.int({ min: 0, max: 3 });
     const mockTpp = faker.number.int({ min: 18, max: 36 });
@@ -129,7 +138,7 @@ export const gameSeedUtil = {
     return {
       id: faker.string.uuid(),
       player_id: playerId,
-      // player:  // TODO: Find out if we really need this
+      date: dateTime,
       minutes: faker.number.int({ min: 4, max: 22 }),
       fga: mockFga,
       fgm: mockfgm,
@@ -149,7 +158,7 @@ export const gameSeedUtil = {
     };
   },
 
-  createGameTeam: (teamId: string): GameTeam => {
+  createGameTeam: (teamId: string, dateTime: Date = new Date()): GameTeam => {
     // Threes
     const mockTpa = faker.number.int({ min: 28, max: 47 });
     const mockTpp = faker.number.int({ min: 28, max: 42 });
@@ -178,7 +187,7 @@ export const gameSeedUtil = {
     return {
       id: faker.string.uuid(),
       team_id: teamId,
-      // team:  // TODO: Find out if we really need this
+      date: dateTime,
       fga: mockFga,
       fgm: mockfgm,
       tpa: mockTpa,
