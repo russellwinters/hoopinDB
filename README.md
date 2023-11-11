@@ -16,7 +16,6 @@ This is intended to be used as a DB server for basketball data. Connect to your 
 
 ### To do:
 
-- Add date to games
-- Update seeds to handle dates on games
+- Add games played to totals schema
 - Add function to updateTotals based on dates of games and most recent update
 - Also find the best way to update averages based on this
