@@ -17,7 +17,6 @@ model Player {
   contracts  ContractFantasy[]
   games      GamePlayer[]
   team       Team               @relation(fields: [team_id], references: [id])
-  averages   PlayerStatAverage?
   totals     PlayerStatTotal?
 }
 
@@ -63,41 +62,9 @@ model PlayerStatTotal {
   pf            Int
   pts           Int
   latest_update DateTime
+  games_played Int @default(0)
   player_id     String   @unique
   player        Player   @relation(fields: [player_id], references: [id])
-}
-
-model PlayerTotalUpdate {
-  id Int @id @default(autoincrement())
-  timestamp DateTime
-}
-
-model PlayerStatAverage {
-  id            String   @id @default(uuid())
-  minutes       Float
-  fga           Float
-  fgm           Float
-  tpa           Float
-  tpm           Float
-  fta           Float
-  ftm           Float
-  oreb          Float
-  dreb          Float
-  reb           Float
-  ast           Float
-  stl           Float
-  blk           Float
-  to            Float
-  pf            Float
-  pts           Float
-  latest_update DateTime
-  player_id     String   @unique
-  player        Player   @relation(fields: [player_id], references: [id])
-}
-
-model PlayerAverageUpdate {
-  id Int @id @default(autoincrement())
-  timestamp DateTime
 }
 
 model Team {
